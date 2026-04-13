@@ -1,0 +1,283 @@
+body {
+    margin: 0;
+    display: block;
+    background-color: rgb(189, 189, 189);
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: lightblue;
+}
+button {
+    text-decoration: none;
+    color: lightblue;
+    background: none;
+    border: none;
+}
+
+a,
+button {
+    font-size: 20px;
+}
+
+#climbCardName {
+    justify-self: center;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#header {
+    background-color: rgb(99, 99, 99);
+    color: white;
+    font-family: sans-serif;
+
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    width: 100%;
+}
+
+#bg-selector {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 999;
+    background-color: gray;
+    border-radius: 10px;
+}
+
+#bg-selector button {
+    margin: 2px;
+    padding: 5px 8px;
+    cursor: pointer;
+    background-color: gray;
+}
+
+#navbar {
+    background-color: gray;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+h1,
+h5 {
+    margin: 0;
+    justify-self: center;
+}
+
+h1 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 50px;
+    letter-spacing: 7px;
+    margin-bottom: 5px;
+}
+
+h5 {
+    letter-spacing: 3px;
+    font-style: italic;
+}
+
+#controls {
+    padding: 10px;
+    text-align: center;
+}
+
+#search {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+#climb-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+}
+
+.climb-card {
+    background: #f0f0f0;
+    margin: 10px;
+    padding: 10px;
+    width: 150px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.climb-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+#climb-details {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.details-card {
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.details-card img {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+#controls {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Search bar */
+#search {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+/* Filter buttons row */
+#filters {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#filters button {
+    padding: 6px 10px;
+    border: none;
+    background: #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Active filter */
+#filters button.active {
+    background: #555;
+    color: white;
+}
+
+/* Sort dropdown */
+#sort {
+    padding: 6px;
+}
+
+#filters input {
+    padding: 6px;
+    margin: 5px;
+    width: 120px;
+    text-align: center;
+}
+
+#imageOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.9);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+#imageOverlay.hidden {
+    display: none;
+}
+
+#overlayImg {
+    max-width: 90%;
+    max-height: 90%;
+    transition: transform 0.2s ease;
+    cursor: grab;
+}
+
+#closeOverlay {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.user-link {
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ascent-card {
+    background-color: rgb(189, 189, 189);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    text-align: center;
+    width: 50%;
+    position: relative;
+    left: 25%;
+}
+
+.user-card {
+    padding: 10px;
+    background-color: gray;
+    margin: 8px 0;
+    border-radius: 8px;
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    text-decoration: none;
+}
+
+#users-list {
+    display: flex;
+    justify-content: center;
+}
+
+.user-link {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#profile-name {
+    background-color: rgb(99, 99, 99);
+    color: white;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+#profile-stats {
+    background-color: rgb(99, 99, 99);
+    color: white;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+#profile-stats p {
+    margin: 0;
+}
