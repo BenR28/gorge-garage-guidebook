@@ -140,7 +140,7 @@ function parseCSV(csv) {
 
             // Keep tags (not used yet but future-proof)
             if (header === "tags") {
-                value = value ? value.split(",").map((t) => t.trim()) : [];
+                value = value ? value.split(";").map((t) => t.trim()) : [];
             }
 
             obj[header] = value;
