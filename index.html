@@ -11,19 +11,42 @@
             <h1>Gorge Garage</h1>
             <h5>The Guidebook To Our Garage</h5>
         </div>
-        <div id="navbar">
-            <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScrrvi30aAAG24rA1tF96Gb7JwqhxIQfu8uxc0DwLtf53aNGA/viewform?usp=dialog"
-                >Submit Climb</a
+        <details id="navbar">
+            <summary>-> Settings <-</summary>
+            <div class="navbarItem">
+                <a
+                    class="navbarItem"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScrrvi30aAAG24rA1tF96Gb7JwqhxIQfu8uxc0DwLtf53aNGA/viewform?usp=dialog"
+                    >Submit Climb</a
+                >
+            </div>
+            <div class="navbarItem">
+                <a
+                    class="navbarItem"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSenq8qB4ZwXsIPxFdOyHBVpnf4YYzMxTaTut7Tqx1F3VXwGlA/viewform?usp=dialog"
+                    >Log Ascent</a
+                >
+            </div>
+            <div class="navbarItem">
+            <button class="navbarItem" id="usersBtn" onclick="toggleUsers()">
+                Show Users
+            </button>
+            <div id="users-list"></div>
+            </div>
+            <div class="navbarItem">
+                <a class="navbarItem" href="og-wall.html">Garage Wall</a>
+            </div>
+            <div class="navbarItem">
+            <button
+                class="navbarItem"
+                onclick="cycleBackground()"
+                id="bg-selector"
             >
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSenq8qB4ZwXsIPxFdOyHBVpnf4YYzMxTaTut7Tqx1F3VXwGlA/viewform?usp=dialog">Log Ascent</a>
-            <button id="usersBtn" onclick="toggleUsers()">Show Users</button>
-        </div>
-        <div id="users-list"></div>
+                Change Background
+            </button>
+            </div>
+        </details>
 
-        
-        
-        <button onclick="cycleBackground()" id="bg-selector">Change Background</button>
         <div id="controls">
             <!-- Search -->
             <input type="text" id="search" placeholder="Search climbs..." />
