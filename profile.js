@@ -94,32 +94,45 @@ function getHardest(ascents) {
 // CSV parser (same as yours)
 // ================================
 function parseCSV(csv) {
+    // Remove "sep=;" if it exists
+    if (csv.startsWith("sep=")) {
+        csv = csv.split("\n").slice(1).join("\n");
+    }
 
-  const lines = csv.trim().split("\n");
-
-  let startIndex = 0;
-  if (lines[0].startsWith("sep=")) {
-    startIndex = 1;
-  }
-
-  const headers = lines[startIndex]
-    .split(";")
-    .map(h => h.trim());
-
-  return lines.slice(startIndex + 1).map(line => {
-
-    const values = line.split(";");
-
-    let obj = {};
-
-    headers.forEach((header, i) => {
-      obj[header] = values[i]?.trim();
+    const result = Papa.parse(csv, {
+        header: true,
+        skipEmptyLines: true
     });
 
-    return obj;
-  });
-}
+    const data = result.data;
 
+    return data.map(obj => {
+
+        let newObj = {};
+
+        for (let key in obj) {
+            let value = obj[key];
+
+            if (value !== undefined && value !== null) {
+                value = value.trim();
+            }
+
+            // Convert numbers (adjust as needed)
+            if (key === "id" || key === "rating" || key === "attempts") {
+                value = value ? Number(value) : null;
+            }
+
+            // Optional: handle tags if you use them later
+            if (key === "tags") {
+                value = value ? value.split(",").map(t => t.trim()) : [];
+            }
+
+            newObj[key] = value;
+        }
+
+        return newObj;
+    });
+}
 
 
 // Apply background
