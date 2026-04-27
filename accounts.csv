@@ -1,5 +1,4 @@
-sep=;
-id;name
-1;Ben Raska
-2;David Raska
-3;Jaspar Meade
+id,name
+1,Ben
+2,Yoda
+3,Jaspar

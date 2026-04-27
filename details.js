@@ -115,38 +115,43 @@ loadBackground();
 // ================================
 
 function parseCSV(csv) {
-    const lines = csv.trim().split("\n");
-
-    // 🔥 Ignore the "sep=;" line if it exists
-    let startIndex = 0;
-    if (lines[0].startsWith("sep=")) {
-        startIndex = 1;
+    // Remove "sep=;" if it exists
+    if (csv.startsWith("sep=")) {
+        csv = csv.split("\n").slice(1).join("\n");
     }
 
-    const headers = lines[startIndex].split(";").map((h) => h.trim());
+    const result = Papa.parse(csv, {
+        header: true,
+        skipEmptyLines: true
+    });
 
-    return lines.slice(startIndex + 1).map((line) => {
-        const values = line.split(";");
+    const data = result.data;
 
-        let obj = {};
+    return data.map(obj => {
 
-        headers.forEach((header, i) => {
-            let value = values[i]?.trim();
+        let newObj = {};
 
-            // Convert numbers
-            if (header === "id" || header === "rating") {
+        for (let key in obj) {
+            let value = obj[key];
+
+            if (value !== undefined && value !== null) {
+                value = value.trim();
+            }
+
+            // Convert numbers (adjust as needed)
+            if (key === "id" || key === "rating" || key === "attempts") {
                 value = value ? Number(value) : null;
             }
 
-            // Keep tags (not used yet but future-proof)
-            if (header === "tags") {
-                value = value ? value.split(";").map((t) => t.trim()) : [];
+            // Optional: handle tags if you use them later
+            if (key === "tags") {
+                value = value ? value.split(",").map(t => t.trim()) : [];
             }
 
-            obj[header] = value;
-        });
+            newObj[key] = value;
+        }
 
-        return obj;
+        return newObj;
     });
 }
 
