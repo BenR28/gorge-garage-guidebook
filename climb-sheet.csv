@@ -1,8 +1,20 @@
 id,name,grade,rating,image,tags,notes,setter,date
 1,The Left Flag,V5,,the-left-flag.png,,"Very cool extension of the black meteor holds climb. I found the first two moves very fun, so I wanted to turn it into a real climb. Figuring out how to make the last move was pretty tricky but I really like how it turned out. Once you send it you will understand the reason behind the name.",Ben,2026-04-08
 2,V4 Plateau,V4,,v4-plateau.png,,The dynamic first two moves quickly lead into a more controlled next two... up untill the swing at the end. The controlled crimps will be hard to get used to but mastering the footwork feels super cool. The name comes from the style of the climb. The first two moves are dynamic showing how you just sent your first V4 and feel pretty good. Then comes the platteu in which you feel like you aren't making progress. You just have to be patient and push through untill the final move where you swing to victory.,Ben,2026-04-09
-3,Cryptic Fusion,V6,,cryptic-fusion.png,,"Think before you start climbing or you will do some serious grunting. Oh, you might consider some stretching before you jump on it.  ",Yoda,2026-04-13
+3,Cryptic Fusion,V6,8,cryptic-fusion.png,,"Think before you start climbing or you will do some serious grunting. Oh, you might consider some stretching before you jump on it.  ",Yoda,2026-04-13
 4,Green Goblin,V2,,green-goblin.png,,Use your power and you shall conquer. ,Yoda,2026-04-13
 5,Feeling Blue,V1,,feeling-blue.png,,"If you ever feel blue, find happiness in crushing this one. ",Yoda,2026-04-13
 6,Blades of Grass,V3,,blades-of-grass.png,,"Follow very sharp crimps the whole way through. Pretty simple climbing up until the final move, where you have to commit from one  sharp blade to another. For anybody who projects this, the last move will be a tough one to master.",Ben,2026-04-09
 7,Jump for Joy,V2,,jump-for-joy.png,,Very juggy and dynamic problem with some tricky footwork. Explosive power and cutting loose are definitely ways to make you jump for joy.,Ben,2026-04-13
+8,Logarithmic Equation,V5,,logarithmic-equation.png,,Very interesting climb that requires a tricky beta if you don't want to get pumped.,Ben,2026-04-27
+9,Slippery Slope,V3,,slippery-slope.png,,"After a pretty tiring start, you enter the crux sequence with only one way out of the slippery slope. Will you slide through the slope to the finish, or will you succumb to the slippery?",Ben,2026-04-27
+10,Meteoric Mastermind,V2,,meteoric-mastermind.png,,Enjoy big leaps from one asteroid to another. Very dynamic V2.,Yoda,2026-04-27
+11,The Windmill,V0,,the-windmill.png,,"Wow, an easy climb in our garage. That is incredibly rare. Enjoy big holds and crossy moves, much like a windmill motion.",Yoda,2026-04-27
+12,2 the moon,V0,,2-the-moon.png,,"HUGE moves in good holds. Watch your footwork, because without it, the moves get much bigger.",Yoda,2026-04-27
+13,Party on the Moon,V4,,party-on-the-moon.png,,Moonboard based climb with intense coordination moves.,Yoda,2026-04-20
+14,The Emerald Yoda,V6,,the-emerald-yoda.png,,"If you want to claim the crystal of the Emerald Yoda, you need to commit to your moves and venture through the emerald cave.",Yoda,2026-04-20
+15,Willy the Wilson,V4,,willy-the-wilson.png,,Based after the Red River Gorge climb Team Wilson (5.12d). The textured holds make for a surprisingly crimpy and pumpy boulder.,Yoda,2026-04-20
+16,Orange Juice,V3,,orange-juice.png,,"Without the beta, you are going to struggle. Take your time and figure out the sequence, and you will succeed.",Yoda,2026-04-27
+17,lodin da fish washer,V3,,lodin-da-fish-washer,,no description,Jaspar,2026-04-09
+18,Cold Sweat,V3,,cold-sweat.png,,no description,Jaspar,2026-04-09
+19,Azurite,V3,,azurite.png,,no description,Jaspar,2026-04-09
