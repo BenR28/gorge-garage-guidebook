@@ -13,8 +13,8 @@ a {
 
 div.navbarItem { 
     display: flex;
-    width: calc(100%); 
-    min-height: 100px;
+    width: calc(150%); 
+    min-height: 10px;
     background-color: rgb(99, 99, 99);
     padding: 10px;
     margin: 10px;
@@ -70,7 +70,7 @@ button {
     display: flex;
     justify-content: space-evenly;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
 }
 
 #navbar details {
@@ -110,10 +110,13 @@ h5 {
 #controls {
     padding: 10px;
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #search {
-    width: 80%;
+    width: 50%;
     padding: 8px;
     font-size: 16px;
 }
@@ -126,13 +129,38 @@ h5 {
 }
 
 .climb-card {
+    font-size: 12px;
     background: #f0f0f0;
-    margin: 10px;
-    padding: 10px;
-    width: 150px;
+    margin: 5px;
+    padding: 5px;
+    padding-right: 10px;
+    width: 100%;
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;   
+    align-items: center; 
+}
+
+.upper, .lower {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px;
+    width: 100%;
+}
+
+
+.climb-card strong {
+    font-size: 16px
+}
+
+.climb-card h3, p {
+    margin: 0;
 }
 
 .climb-card img {
@@ -177,18 +205,10 @@ h5 {
 
 /* Filter buttons row */
 #filters {
-    display: flex;
     gap: 5px;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-#filters button {
-    padding: 6px 10px;
-    border: none;
-    background: #ddd;
-    border-radius: 6px;
-    cursor: pointer;
+    height: 100%;
 }
 
 /* Active filter */
@@ -204,9 +224,10 @@ h5 {
 
 #filters input {
     padding: 6px;
-    margin: 5px;
-    width: 120px;
+    width: 110px;
     text-align: center;
+        margin-right: 10px;
+
 }
 
 #imageOverlay {
@@ -335,30 +356,29 @@ h5 {
         align-items: center;
     }
 
+    #controls {
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
     /* Search bar full width */
     #search {
-        width: 95%;
+        width: 65%;
         font-size: 18px;
+        height: 10px;
     }
 
     /* Filters stack nicely */
     #filters {
         flex-direction: column;
         align-items: center;
+        height: 100%;
     }
 
-    #filters button {
-        width: 80%;
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    /* Climb cards bigger + easier to tap */
-    .climb-card {
-        width: 90%;
-        max-width: 300px;
-        padding: 15px;
-    }
 
     .climb-card img {
         border-radius: 10px;
@@ -410,5 +430,30 @@ h5 {
     #bg-selector button {
         padding: 10px;
         font-size: 16px;
+    }
+
+    #filters {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    #filters input {
+        width: 110px;
+    }
+
+    #clearFilters {
+        height: 31px;
+        width: 90px;
+        font-size: 14px;
+        margin-left: 0px;
+        border: none;
+        background: #ffffff;
+        color: black;
+        border-radius: 2px;
+        cursor: pointer;
+        padding: 0;
+        padding-top: 8px;
+        padding-bottom: 12px;
     }
 }
