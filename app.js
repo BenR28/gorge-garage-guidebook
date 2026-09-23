@@ -2,16 +2,22 @@
 // GLOBAL STATE
 // ================================
 
-// Stores all of the climbs loaded from the CSV.
+// Stores all of the climbs loaded from climb-sheet.csv.
 let climbsData = [];
+
+// Stores all of the ascents loaded from ascents.csv.
+// We need this so the website can calculate average ratings.
+let ascentsData = [];
+
+
+// ================================
+// SAVED FILTER SETTINGS
+// ================================
 
 // Load previously saved filter settings from the browser.
 //
-// If there is nothing saved yet:
-// - Minimum grade = VB
-// - Maximum grade = V17
-// - Search = empty
-// - Sort = newest
+// Blank minimum = no lower limit.
+// Blank maximum = no upper limit (treated as V17).
 let minGrade = localStorage.getItem("minGrade") || "";
 let maxGrade = localStorage.getItem("maxGrade") || "";
 let currentSearch = localStorage.getItem("currentSearch") || "";
@@ -22,18 +28,14 @@ let currentSort = localStorage.getItem("currentSort") || "date-desc";
 // RESTORE SAVED FILTER VALUES
 // ================================
 
-// Put the saved values into the actual controls on the page.
+// Put the saved values back into the controls.
 
-// Search box
 document.getElementById("search").value = currentSearch;
 
-// Minimum grade box
 document.getElementById("minGrade").value = minGrade;
 
-// Maximum grade box
 document.getElementById("maxGrade").value = maxGrade;
 
-// Sort dropdown
 document.getElementById("sort").value = currentSort;
 
 
@@ -42,12 +44,14 @@ document.getElementById("sort").value = currentSort;
 // ================================
 
 // Converts a date such as:
+//
 // 2026-04-08
 //
 // Into:
+//
 // April 8, 2026
 //
-// We build the date manually so JavaScript doesn't
+// We build the date manually so JavaScript does not
 // accidentally shift it by a day because of time zones.
 function formatDate(dateStr) {
     if (!dateStr) return "—";
@@ -70,26 +74,31 @@ function formatDate(dateStr) {
 
 
 // ================================
-// LOAD CSV DATA
+// LOAD CLIMBS + ASCENTS
 // ================================
 
-// Fetch the climb spreadsheet CSV.
-fetch("climb-sheet.csv")
-    .then((res) => res.text())
+// Load both CSV files at the same time.
+//
+// We need both files before displaying the climbs because
+// the climb rating now comes from the ascent ratings.
+Promise.all([
+    fetch("climb-sheet.csv").then((res) => res.text()),
+    fetch("ascents.csv").then((res) => res.text()),
+])
 
-    // Once the CSV has been downloaded...
-    .then((csv) => {
+    .then(([climbCSV, ascentCSV]) => {
 
-        // Convert the CSV into JavaScript objects.
-        climbsData = parseCSV(csv);
+        // Convert both CSV files into JavaScript objects.
+        climbsData = parseCSV(climbCSV);
+        ascentsData = parseCSV(ascentCSV);
 
-        // Display the climbs using the saved filters.
+        // Now that both files are loaded,
+        // display the climbs.
         updateDisplay();
     })
 
-    // If something goes wrong, show the error in the console.
     .catch((error) => {
-        console.error("Error loading climb CSV:", error);
+        console.error("Error loading CSV files:", error);
     });
 
 
@@ -101,8 +110,10 @@ fetch("climb-sheet.csv")
 const backgrounds = ["bg1.png", "bg2.png", "bg3.png"];
 
 
-// Apply a background based on its position
-// in the backgrounds array.
+// ================================
+// APPLY BACKGROUND
+// ================================
+
 function applyBackground(index) {
 
     const imageName = backgrounds[index];
@@ -128,19 +139,22 @@ function cycleBackground() {
     // Get the currently selected background.
     let currentIndex = localStorage.getItem("bgIndex");
 
-    // If there isn't one saved yet, start with the first background.
+    // If there is not one saved yet,
+    // start with the first background.
     if (currentIndex === null) {
+
         currentIndex = 0;
+
     } else {
 
-        // localStorage stores everything as text,
+        // localStorage stores values as text,
         // so convert it back into a number.
         currentIndex = Number(currentIndex);
 
         // Move to the next background.
         //
-        // The % makes it loop back to 0 when we
-        // reach the end of the array.
+        // The % makes it loop back to 0
+        // when we reach the end of the array.
         currentIndex =
             (currentIndex + 1) % backgrounds.length;
     }
@@ -155,20 +169,23 @@ function cycleBackground() {
 
 function loadBackground() {
 
-    const savedIndex = localStorage.getItem("bgIndex");
+    const savedIndex =
+        localStorage.getItem("bgIndex");
 
     // If a background was saved before...
     if (savedIndex !== null) {
-        applyBackground(Number(savedIndex));
-    }
 
-    // Otherwise, use the first background.
-    else {
+        applyBackground(Number(savedIndex));
+
+    } else {
+
+        // Otherwise, use the first background.
         applyBackground(0);
     }
 }
 
-// Apply the saved background as soon as the page loads.
+
+// Run when page loads.
 loadBackground();
 
 
@@ -178,13 +195,14 @@ loadBackground();
 
 document.getElementById("search").addEventListener("input", (e) => {
 
-    // Get whatever the user typed.
+    // Save whatever the user typed.
     currentSearch = e.target.value.toLowerCase();
 
-    // Save the search in localStorage.
-    localStorage.setItem("currentSearch", currentSearch);
+    localStorage.setItem(
+        "currentSearch",
+        currentSearch
+    );
 
-    // Re-filter the climbs.
     updateDisplay();
 });
 
@@ -197,14 +215,17 @@ document.getElementById("minGrade").addEventListener("input", (e) => {
 
     // Convert the user's input to uppercase.
     //
-    // For example:
-    // v3 → V3
-    minGrade = e.target.value.trim().toUpperCase() || "VB";
+    // Example:
+    // v5 → V5
+    minGrade =
+        e.target.value.trim().toUpperCase();
 
     // Save the setting.
-    localStorage.setItem("minGrade", minGrade);
+    localStorage.setItem(
+        "minGrade",
+        minGrade
+    );
 
-    // Re-filter the climbs.
     updateDisplay();
 });
 
@@ -214,11 +235,16 @@ document.getElementById("minGrade").addEventListener("input", (e) => {
 // ================================
 
 document.getElementById("maxGrade").addEventListener("input", (e) => {
-    // Save exactly what the user typed.
-    // An empty box remains an empty value.
-    maxGrade = e.target.value.trim().toUpperCase();
 
-    localStorage.setItem("maxGrade", maxGrade);
+    // Keep the box visually blank if the user leaves it blank.
+    maxGrade =
+        e.target.value.trim().toUpperCase();
+
+    // Save the setting.
+    localStorage.setItem(
+        "maxGrade",
+        maxGrade
+    );
 
     updateDisplay();
 });
@@ -230,86 +256,195 @@ document.getElementById("maxGrade").addEventListener("input", (e) => {
 
 document.getElementById("sort").addEventListener("change", (e) => {
 
-    // Save the selected sorting method.
     currentSort = e.target.value;
 
-    // Save it in localStorage.
-    localStorage.setItem("currentSort", currentSort);
+    // Save the selected sorting method.
+    localStorage.setItem(
+        "currentSort",
+        currentSort
+    );
 
-    // Re-sort the climbs.
     updateDisplay();
 });
+
+
+// ================================
+// CLEAR FILTERS
+// ================================
+
+// This clears only the search/filter settings.
+// It does NOT affect the background, users,
+// ascents, or anything else stored in localStorage.
+document.getElementById("clearFilters").addEventListener("click", () => {
+
+    // Reset filter variables.
+    minGrade = "";
+    maxGrade = "";
+    currentSearch = "";
+    currentSort = "date-desc";
+
+    // Reset the visible controls.
+    document.getElementById("search").value = "";
+    document.getElementById("minGrade").value = "";
+    document.getElementById("maxGrade").value = "";
+    document.getElementById("sort").value = "date-desc";
+
+    // Delete only the filter settings.
+    localStorage.removeItem("minGrade");
+    localStorage.removeItem("maxGrade");
+    localStorage.removeItem("currentSearch");
+    localStorage.removeItem("currentSort");
+
+    // Show the climbs again.
+    updateDisplay();
+});
+
+
+// ================================
+// CALCULATE AVERAGE FUNNESS RATING
+// ================================
+
+// Gets the average rating for a particular climb.
+//
+// Example:
+//
+// Ratings:
+// 5
+// 4
+// 3
+//
+// Result:
+// 4
+//
+// If there are no ratings, this returns null.
+function getAverageRating(climbId) {
+
+    // Find all ascents for this climb.
+    const ratings = ascentsData
+
+        .filter((ascent) =>
+            String(ascent.climbId) ===
+            String(climbId)
+        )
+
+        // Convert the ratings into numbers.
+        .map((ascent) => Number(ascent.rating))
+
+        // Ignore blank or invalid ratings.
+        .filter((rating) => !isNaN(rating));
+
+
+    // No ratings yet.
+    if (ratings.length === 0) {
+        return null;
+    }
+
+
+    // Add all ratings together.
+    const total = ratings.reduce(
+        (sum, rating) => sum + rating,
+        0
+    );
+
+
+    // Calculate the average.
+    const average =
+        total / ratings.length;
+
+
+    // Round to one decimal place.
+    return Math.round(average * 10) / 10;
+}
 
 
 // ================================
 // MAIN UPDATE FUNCTION
 // ================================
 
-// This function takes all of the climbs,
-// applies the current filters and sorting,
-// and then displays the results.
+// Applies filters and sorting,
+// then displays the resulting climbs.
 function updateDisplay() {
 
-    // Create a copy of the original array.
-    //
-    // We do this because sorting an array directly
-    // changes the original array.
+    // Make a copy of the climb data.
     let filtered = [...climbsData];
 
 
-    // ------------------------
+    // ================================
     // GRADE RANGE FILTER
-    // ------------------------
+    // ================================
 
-    const min = getGradeNumber(minGrade);
+    // Blank minimum means VB.
+    const min =
+        minGrade === ""
+            ? -1
+            : getGradeNumber(minGrade);
 
-    // A blank maximum means V17.
-    const max = maxGrade === "" ? 17 : getGradeNumber(maxGrade);
+    // Blank maximum means V17.
+    const max =
+        maxGrade === ""
+            ? 17
+            : getGradeNumber(maxGrade);
+
 
     filtered = filtered.filter((c) => {
 
-        const g = getGradeNumber(c.grade);
+        const grade =
+            getGradeNumber(c.grade);
 
-        return g >= min && g <= max;
+        return grade >= min && grade <= max;
     });
 
 
-    // ------------------------
+    // ================================
     // SEARCH FILTER
-    // ------------------------
+    // ================================
 
     if (currentSearch) {
 
         filtered = filtered.filter((c) => {
 
-            // Search the climb name.
+            // Search climb name.
             const matchesName =
                 c.name &&
-                c.name.toLowerCase().includes(currentSearch);
+                c.name
+                    .toLowerCase()
+                    .includes(currentSearch);
 
-            // Search the grade.
+
+            // Search grade.
             const matchesGrade =
                 c.grade &&
-                c.grade.toLowerCase().includes(currentSearch);
+                c.grade
+                    .toLowerCase()
+                    .includes(currentSearch);
+
 
             // Search tags if they exist.
             const matchesTags =
                 c.tags &&
-                c.tags.join(" ")
+                c.tags
+                    .join(" ")
                     .toLowerCase()
                     .includes(currentSearch);
 
-            // The climb is shown if ANY of those match.
-            return matchesName || matchesGrade || matchesTags;
+
+            // Show the climb if any field matches.
+            return (
+                matchesName ||
+                matchesGrade ||
+                matchesTags
+            );
         });
     }
 
 
-    // ------------------------
+    // ================================
     // SORTING
-    // ------------------------
+    // ================================
 
+    // ------------------------
     // Grade: easiest → hardest
+    // ------------------------
     if (currentSort === "grade-asc") {
 
         filtered.sort(
@@ -320,7 +455,9 @@ function updateDisplay() {
     }
 
 
+    // ------------------------
     // Grade: hardest → easiest
+    // ------------------------
     if (currentSort === "grade-desc") {
 
         filtered.sort(
@@ -331,80 +468,103 @@ function updateDisplay() {
     }
 
 
+    // ------------------------
     // Rating: highest → lowest
+    // ------------------------
+
     if (currentSort === "rating-desc") {
 
         filtered.sort((a, b) => {
 
-            // Empty ratings go to the bottom.
             const ratingA =
-                a.rating === null ? -1 : Number(a.rating);
+                getAverageRating(a.id);
 
             const ratingB =
-                b.rating === null ? -1 : Number(b.rating);
+                getAverageRating(b.id);
 
-            return ratingB - ratingA;
+
+            // Put unrated climbs at the bottom.
+            const valueA =
+                ratingA === null
+                    ? -1
+                    : ratingA;
+
+            const valueB =
+                ratingB === null
+                    ? -1
+                    : ratingB;
+
+
+            return valueB - valueA;
         });
     }
 
 
+    // ------------------------
     // Newest → oldest
+    // ------------------------
+
     if (currentSort === "date-desc") {
 
         filtered.sort((a, b) => {
 
-            // Convert dates into timestamps.
-            const dateA = a.date
-                ? new Date(a.date).getTime()
-                : 0;
+            const dateA =
+                a.date
+                    ? new Date(a.date).getTime()
+                    : 0;
 
-            const dateB = b.date
-                ? new Date(b.date).getTime()
-                : 0;
+            const dateB =
+                b.date
+                    ? new Date(b.date).getTime()
+                    : 0;
 
             return dateB - dateA;
         });
     }
 
 
+    // ------------------------
     // Oldest → newest
+    // ------------------------
+
     if (currentSort === "date-asc") {
 
         filtered.sort((a, b) => {
 
-            const dateA = a.date
-                ? new Date(a.date).getTime()
-                : Infinity;
+            const dateA =
+                a.date
+                    ? new Date(a.date).getTime()
+                    : Infinity;
 
-            const dateB = b.date
-                ? new Date(b.date).getTime()
-                : Infinity;
+            const dateB =
+                b.date
+                    ? new Date(b.date).getTime()
+                    : Infinity;
 
             return dateA - dateB;
         });
     }
 
 
-    // Finally, display the results.
+    // Display the final results.
     displayClimbs(filtered);
 }
 
 
 // ================================
-// DISPLAY CLIMBS -=-----------------------------------------------------------------------------------------------------------------------------------------------------
+// DISPLAY CLIMBS
 // ================================
 
-// Creates the climb cards on the page.
 function displayClimbs(climbs) {
 
     const container =
         document.getElementById("climb-list");
 
-    // Clear the old results first.
+    // Remove the previous cards.
     container.innerHTML = "";
 
 
-    // If there aren't any matching climbs...
+    // If no climbs match the filters...
     if (climbs.length === 0) {
 
         container.innerHTML =
@@ -414,7 +574,7 @@ function displayClimbs(climbs) {
     }
 
 
-    // Create one card for every climb.
+    // Create a card for every climb.
     climbs.forEach((climb) => {
 
         const card =
@@ -423,32 +583,47 @@ function displayClimbs(climbs) {
         card.className = "climb-card";
 
 
-        // Build the HTML inside the card.
-        card.innerHTML = `
-        <div class="upper">
-            <h3>${climb.name}</h3>
+        // Calculate this climb's average rating.
+        const averageRating =
+            getAverageRating(climb.id);
 
-            <p><strong>${climb.grade}</strong></p>
-        </div>
-        <div class="lower">
-            <p>
-                By
-                ${climb.setter || "Unknown"}
-            </p>
-            
-            <p>
-                ${
-                    climb.rating
-                        ? `⭐ ${climb.rating}`
-                        : "Unrated ):"
-                }
-            </p>
-        </div>
+
+        // Build the card HTML.
+        card.innerHTML = `
+            <div class="upper">
+
+                <h3>
+                    ${climb.name}
+                </h3>
+
+                <p>
+                    <strong>
+                        ${climb.grade}
+                    </strong>
+                </p>
+
+            </div>
+
+            <div class="lower">
+
+                <p>
+                    By
+                    ${climb.setter || "Unknown"}
+                </p>
+
+                <p>
+                    ${
+                        averageRating !== null
+                            ? `⭐ ${averageRating}`
+                            : "Unrated ):"
+                    }
+                </p>
+
+            </div>
         `;
 
 
-        // Clicking the card takes the user
-        // to the climb's details page.
+        // Clicking the card opens its details page.
         card.onclick = () => {
 
             window.location.href =
@@ -466,18 +641,17 @@ function displayClimbs(climbs) {
 // CSV PARSER
 // ================================
 
-// Converts the CSV text into an array
-// of JavaScript objects using PapaParse.
+// Converts CSV text into JavaScript objects.
+//
+// PapaParse handles:
+// - commas inside quotes
+// - escaped quotes
+// - empty fields
+// - standard CSV formatting
 function parseCSV(csv) {
 
-    // If the CSV starts with:
-    //
-    // sep=;
-    //
-    // remove that line.
-    //
-    // This is mostly here for compatibility
-    // in case an older CSV still has it.
+    // Remove "sep=;" if an older CSV
+    // still happens to contain it.
     if (csv.startsWith("sep=")) {
 
         csv = csv
@@ -487,22 +661,20 @@ function parseCSV(csv) {
     }
 
 
-    // Ask PapaParse to process the CSV.
     const result = Papa.parse(csv, {
 
         // Use the first row as column names.
         header: true,
 
-        // Ignore completely empty rows.
-        skipEmptyLines: true
+        // Ignore empty rows.
+        skipEmptyLines: true,
     });
 
 
-    // PapaParse gives us an array of objects.
     const data = result.data;
 
 
-    // Clean up and convert certain values.
+    // Clean up the parsed values.
     return data.map((obj) => {
 
         let newObj = {};
@@ -523,32 +695,32 @@ function parseCSV(csv) {
             }
 
 
-            // Convert numeric columns into actual numbers.
+            // Convert number fields to actual numbers.
             if (
                 key === "id" ||
                 key === "rating" ||
                 key === "attempts"
             ) {
 
-                value = value
-                    ? Number(value)
-                    : null;
+                value =
+                    value
+                        ? Number(value)
+                        : null;
             }
 
 
-            // Tags are kept as an array so
-            // we can use them later.
+            // Keep tags available for future use.
             if (key === "tags") {
 
-                value = value
-                    ? value
-                        .split(",")
-                        .map((t) => t.trim())
-                    : [];
+                value =
+                    value
+                        ? value
+                            .split(",")
+                            .map((t) => t.trim())
+                        : [];
             }
 
 
-            // Store the cleaned value.
             newObj[key] = value;
         }
 
@@ -562,14 +734,14 @@ function parseCSV(csv) {
 // GRADE CONVERSION
 // ================================
 
-// Turns:
+// Converts climbing grades into numbers
+// so JavaScript can compare them.
+//
 // VB → -1
 // V0 → 0
 // V1 → 1
 // V5 → 5
 // V17 → 17
-//
-// This lets JavaScript compare grades numerically.
 function getGradeNumber(grade) {
 
     if (!grade) {
@@ -577,20 +749,20 @@ function getGradeNumber(grade) {
     }
 
 
-    // VB is easier than V0,
-    // so give it a value below V0.
     if (grade === "VB") {
         return -1;
     }
 
 
     const num =
-        parseInt(grade.replace("V", ""));
+        parseInt(
+            grade.replace("V", "")
+        );
 
 
-    // If the grade isn't valid,
-    // return 0 instead of causing an error.
-    return isNaN(num) ? 0 : num;
+    return isNaN(num)
+        ? 0
+        : num;
 }
 
 
@@ -598,12 +770,10 @@ function getGradeNumber(grade) {
 // USERS
 // ================================
 
-// Keeps track of whether the user list is
-// currently visible.
 let usersVisible = false;
 
 
-// Toggle the users list on and off.
+// Toggle the users list.
 function toggleUsers() {
 
     const container =
@@ -621,7 +791,8 @@ function toggleUsers() {
 
         container.innerHTML = "";
 
-        button.textContent = "Show Users";
+        button.textContent =
+            "Show Users";
 
         usersVisible = false;
 
@@ -635,39 +806,39 @@ function toggleUsers() {
 
     fetch("accounts.csv")
 
-        // Read the CSV as text.
         .then((res) => res.text())
 
-        // Parse and display it.
         .then((csv) => {
 
-            const users = parseCSV(csv);
+            const users =
+                parseCSV(csv);
 
 
             container.innerHTML =
-                users.map((u) => `
+                users
+                    .map((u) => `
 
-                    <div class="user-card">
+                        <div class="user-card">
 
-                        <span
-                            class="user-link"
-                            onclick='viewProfile("${u.name}")'
-                        >
-                            ${u.name}
-                        </span>
+                            <span
+                                class="user-link"
+                                onclick='viewProfile("${u.name}")'
+                            >
+                                ${u.name}
+                            </span>
 
-                    </div>
+                        </div>
 
-                `).join("");
+                    `)
+                    .join("");
 
 
-            // Change button to "Hide Users".
-            button.textContent = "Hide Users";
+            button.textContent =
+                "Hide Users";
 
             usersVisible = true;
         })
 
-        // Catch any errors.
         .catch((error) => {
 
             console.error(
@@ -688,37 +859,3 @@ function viewProfile(userName) {
     window.location.href =
         `profile.html?user=${encodeURIComponent(userName)}`;
 }
-
-// ================================
-// CLEAR FILTERS BUTTON
-// ================================
-
-document.getElementById("clearFilters").addEventListener("click", () => {
-
-    // Reset the variables to their defaults.
-    minGrade = "";
-    maxGrade = "";
-    currentSearch = "";
-    currentSort = "date-desc";
-
-    // Reset the visible controls on the page.
-    document.getElementById("search").value = "";
-    document.getElementById("minGrade").value = "";
-    document.getElementById("maxGrade").value = "";
-    document.getElementById("sort").value = "date-desc";
-
-    // Remove ONLY the filter settings from localStorage.
-    //
-    // This does NOT remove:
-    // - Background
-    // - User selection
-    // - Ascents
-    // - Any other saved information
-    localStorage.removeItem("minGrade");
-    localStorage.removeItem("maxGrade");
-    localStorage.removeItem("currentSearch");
-    localStorage.removeItem("currentSort");
-
-    // Show all climbs using the default settings.
-    updateDisplay();
-});

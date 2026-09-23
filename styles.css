@@ -108,11 +108,14 @@ h5 {
 }
 
 #controls {
+    background-color: gray;
     padding: 10px;
     text-align: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    position: sticky;
+    top: 0;
 }
 
 #search {
@@ -392,8 +395,10 @@ h5 {
 
     /* Ascent cards full width */
     .ascent-card {
-        width: 90%;
+        width: 85%;
         left: 5%;
+        background-color:#f0f0f0;
+        font-size: 14px;
     }
 
     /* Users list stacked */
