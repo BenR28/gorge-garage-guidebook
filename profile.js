@@ -52,9 +52,11 @@ fetch("ascents.csv")
     container.innerHTML = userAscents.map(a => `
       <div class="ascent-card">
         <h3>${a.climbName}</h3>
+        <div class="ascent-mini-info">
         <p><strong>Date:</strong> ${a.date}</p>
         <p><strong>Attempts:</strong> ${a.attempts || "—"}</p>
         <p><strong>Rating:</strong> ⭐ ${a.rating || "—"}</p>
+        </div>
         ${a.comments ? `<p>${a.comments}</p>` : ""}
       </div>
     `).join("");
