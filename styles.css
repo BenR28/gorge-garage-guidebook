@@ -400,6 +400,14 @@ h5 {
         background-color:#f0f0f0;
         font-size: 14px;
     }
+    .ascent-card p {
+        height: 14.5px;
+    }
+    .ascent-mini-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
 
     /* Users list stacked */
     #users-list {
