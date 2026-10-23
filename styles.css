@@ -395,13 +395,18 @@ h5 {
 
     /* Ascent cards full width */
     .ascent-card {
-        width: 85%;
+        width: 100%;
         left: 5%;
         background-color:#f0f0f0;
         font-size: 14px;
+        height: min-content;
     }
     .ascent-card p {
         height: 14.5px;
+    }
+    .ascent-card h3 {
+        margin: 0;
+        padding: 0;
     }
     .ascent-mini-info {
         display: flex;
