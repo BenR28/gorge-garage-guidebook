@@ -395,8 +395,8 @@ h5 {
 
     /* Ascent cards full width */
     .ascent-card {
-        width: 100%;
-        left: 5%;
+        width: 90%;
+        left: 2.5%;
         background-color:#f0f0f0;
         font-size: 14px;
         height: min-content;
@@ -412,6 +412,14 @@ h5 {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+    }
+    .ascent-comment { 
+        height: 100% !important;
+        margin-top: 3px;
+    }
+    .ascent-card-rating {
+        bottom: 3px;
+        position: relative;
     }
 
     /* Users list stacked */
