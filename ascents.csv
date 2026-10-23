@@ -19,4 +19,4 @@ id,climbId,climbName,userName,date,rating,attempts,suggestedGrade,comments
 18,18,Cold Sweat,Ben,2026-04-09,7,1,V3,"Quite the dynamic moves. Probably the best climb in the Jaspar Trilogy."
 19,19,Azurite,Ben,2026-04-09,5,1,V2,"Chill climbing with pretty cool movements."
 20,20,El Verte,Ben,2026-04-04,7,2,V4,"If you got The Emerald Yoda and turned it into V4. Still surprisingly dynamic and I fell because of way too much hesitation."
-21,24,Under the Bridge,Ben,4,1,V4,"Cool idea, bad execution."
+21,24,Under the Bridge,Ben,Ben,2026-05-09,4,1,V4,"Cool idea, bad execution."
