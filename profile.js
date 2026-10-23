@@ -55,9 +55,9 @@ fetch("ascents.csv")
         <div class="ascent-mini-info">
         <p><strong>Date:</strong> ${a.date}</p>
         <p><strong>Attempts:</strong> ${a.attempts || "—"}</p>
-        <p><strong>Rating:</strong> ⭐ ${a.rating || "—"}</p>
+        <p class="ascent-card-rating"><strong>Rating:</strong> ⭐ ${a.rating || "—"}</p>
         </div>
-        ${a.comments ? `<p>${a.comments}</p>` : ""}
+        ${a.comments ? `<p class="ascent-comment">${a.comments}</p>` : ""}
       </div>
     `).join("");
 
