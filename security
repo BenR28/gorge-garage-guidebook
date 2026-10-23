@@ -1,0 +1,5 @@
+Security:
+• Multi-Factor Authentication (MFA): Enforce strict, hardware- or app-based MFA across all organization members.
+•Domain Verification: Verify custom domains in GitHub Pages settings to block unauthorized third-party claims.
+• Secret Sprawl Monitoring: Never commit API keys, tokens, or credentials directly into code repositories.
+• AI & Extension Auditing: Carefully vet IDE extensions (VS Code, Cursor) and treat AI coding agents as privileged entities that shouldn't auto-execute untrusted issue comments or pull requests.
