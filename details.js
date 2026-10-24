@@ -486,13 +486,13 @@ function loadClimbAscents(climbId) {
                         (ascent) => `
 
                             <div class="ascent-card">
-        <h3>${a.climbName}</h3>
+        <h3>${ascent.climbName}</h3>
         <div class="ascent-mini-info">
-        <p><strong>Date:</strong> ${a.date}</p>
-        <p><strong>Attempts:</strong> ${a.attempts || "—"}</p>
-        <p class="ascent-card-rating"><strong>Rating:</strong> ⭐ ${a.rating || "—"}</p>
+        <p><strong>Date:</strong> ${ascent.date}</p>
+        <p><strong>Attempts:</strong> ${ascent.attempts || "—"}</p>
+        <p class="ascent-card-rating"><strong>Rating:</strong> ⭐ ${ascent.rating || "—"}</p>
         </div>
-        ${a.comments ? `<p class="ascent-comment">${a.comments}</p>` : ""}
+        ${ascent.comments ? `<p class="ascent-comment">${ascent.comments}</p>` : ""}
       </div>
 
                         `
