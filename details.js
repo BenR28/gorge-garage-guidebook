@@ -486,74 +486,14 @@ function loadClimbAscents(climbId) {
                         (ascent) => `
 
                             <div class="ascent-card">
-
-                                <h3>
-                                    ${ascent.userName}
-                                </h3>
-
-
-                                <p>
-                                    <strong>
-                                        Date:
-                                    </strong>
-
-                                    ${formatDate(
-                                        ascent.date
-                                    )}
-                                </p>
-
-
-                                <p>
-                                    <strong>
-                                        Attempts:
-                                    </strong>
-
-                                    ${
-                                        ascent.attempts ||
-                                        "—"
-                                    }
-                                </p>
-
-
-                                <p>
-                                    <strong>
-                                        Rating:
-                                    </strong>
-
-                                    ${
-                                        ascent.rating
-                                            ? `⭐ ${ascent.rating}`
-                                            : "Unrated"
-                                    }
-                                </p>
-
-
-                                ${
-                                    ascent.suggestedGrade
-                                        ? `
-                                            <p>
-                                                <strong>
-                                                    Suggested Grade:
-                                                </strong>
-
-                                                ${ascent.suggestedGrade}
-                                            </p>
-                                        `
-                                        : ""
-                                }
-
-
-                                ${
-                                    ascent.comments
-                                        ? `
-                                            <p>
-                                                ${ascent.comments}
-                                            </p>
-                                        `
-                                        : ""
-                                }
-
-                            </div>
+        <h3>${a.climbName}</h3>
+        <div class="ascent-mini-info">
+        <p><strong>Date:</strong> ${a.date}</p>
+        <p><strong>Attempts:</strong> ${a.attempts || "—"}</p>
+        <p class="ascent-card-rating"><strong>Rating:</strong> ⭐ ${a.rating || "—"}</p>
+        </div>
+        ${a.comments ? `<p class="ascent-comment">${a.comments}</p>` : ""}
+      </div>
 
                         `
                     )
