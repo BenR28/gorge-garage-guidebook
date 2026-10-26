@@ -4,6 +4,17 @@ body {
     background-color: rgb(189, 189, 189);
     font-family: sans-serif;
 }
+.list-card {
+    background: #f0f0f0;
+    padding: 15px;
+    margin: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.list-card:hover {
+    background: #ddd;
+}
 
 a {
     text-decoration: none;
@@ -21,7 +32,9 @@ div.navbarItem {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    justify-self: center;
+    justify-content: center;
+    right: calc(35%);
+    position: relative;
 }
 .navbarItem a, .navbarItem button {
     display: flex;
@@ -404,10 +417,24 @@ h5 {
     .ascent-card p {
         height: 14.5px;
     }
-    .ascent-card h3 {
+    .ascent-card h3, .ascent-card a {
         margin: 0;
         padding: 0;
+        color: black;
+        text-align: center;
+        text-decoration: underline;
     }
+    
+    .ascent-card h3 {
+        text-align: center;
+    }
+
+    .ascent-card h3 a {
+        display: inline;
+        width: auto;
+        text-align: inherit;
+    }
+
     .ascent-mini-info {
         display: flex;
         flex-direction: row;

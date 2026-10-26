@@ -486,7 +486,8 @@ function loadClimbAscents(climbId) {
                         (ascent) => `
 
                             <div class="ascent-card">
-        <h3>${ascent.climbName}</h3>
+        <h3>${ascent.userName}</h3>
+        <p><strong>Suggested Grade:</strong> ${ascent.suggestedGrade}</p>
         <div class="ascent-mini-info">
         <p><strong>Date:</strong> ${ascent.date}</p>
         <p><strong>Attempts:</strong> ${ascent.attempts || "—"}</p>

@@ -51,7 +51,8 @@ fetch("ascents.csv")
 
     container.innerHTML = userAscents.map(a => `
       <div class="ascent-card">
-        <h3>${a.climbName}</h3>
+        <h3><a href="climb-details.html?id=${a.climbId}">${a.climbName}</a></h3>
+        <p><strong>Suggested Grade:</strong> ${a.suggestedGrade}</p>
         <div class="ascent-mini-info">
         <p><strong>Date:</strong> ${a.date}</p>
         <p><strong>Attempts:</strong> ${a.attempts || "—"}</p>
