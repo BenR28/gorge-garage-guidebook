@@ -5,12 +5,12 @@ id,name,grade,rating,image,tags,notes,setter,date
 4,Green Goblin,V2,,green-goblin.png,,Use your power and you shall conquer. ,Yoda,2026-04-13
 5,Feeling Blue,V1,,feeling-blue.png,,"If you ever feel blue, find happiness in crushing this one. ",Yoda,2026-04-13
 6,Blades of Grass,V3,,blades-of-grass.png,,"Follow very sharp crimps the whole way through. Pretty simple climbing up until the final move, where you have to commit from one  sharp blade to another. For anybody who projects this, the last move will be a tough one to master.",Ben,2026-04-09
-7,Jump for Joy,V2,,jump-for-joy.png,,Very juggy and dynamic problem with some tricky footwork. Explosive power and cutting loose are definitely ways to make you jump for joy.,Ben,2026-04-13
+7,Jump for Joy,V3,,jump-for-joy.png,,Very juggy and dynamic problem with some tricky footwork. Explosive power and cutting loose are definitely ways to make you jump for joy.,Ben,2026-04-13
 8,Logarithmic Equation,V5,,logarithmic-equation.png,,Very interesting climb that requires a tricky beta if you don't want to get pumped.,Ben,2026-04-27
 9,Slippery Slope,V3,,slippery-slope.png,,"After a pretty tiring start, you enter the crux sequence with only one way out of the slippery slope. Will you slide through the slope to the finish, or will you succumb to the slippery?",Ben,2026-04-27
-10,Meteoric Mastermind,V2,,meteoric-mastermind.png,,Enjoy big leaps from one asteroid to another. Very dynamic V2.,Yoda,2026-04-27
-11,Happy Snowman,V0,,happy-snowman.png,,"Wow, an easy climb in our garage. That is incredibly rare, so enjoy the big holds while you can.",Yoda,2026-04-27
-12,2 the moon,V0,,2-the-moon.png,,"HUGE moves in good holds. Watch your footwork, because without it, the moves get much bigger.",Yoda,2026-04-27
+10,Meteoric Mastermind,V3,,meteoric-mastermind.png,,Enjoy big leaps from one asteroid to another. Very dynamic V2.,Yoda,2026-04-27
+11,Happy Snowman,V1,,happy-snowman.png,,"Wow, an easy climb in our garage. That is incredibly rare, so enjoy the big holds while you can.",Yoda,2026-04-27
+12,2 the moon,V1,,2-the-moon.png,,"HUGE moves in good holds. Watch your footwork, because without it, the moves get much bigger.",Yoda,2026-04-27
 13,Party on the Moon,V4,,party-on-the-moon.png,,Moonboard based climb with intense coordination moves.,Yoda,2026-04-20
 14,The Emerald Yoda,V6,,the-emerald-yoda.png,,"If you want to claim the crystal of the Emerald Yoda, you need to commit to your moves and venture through the emerald cave.",Yoda,2026-04-20
 15,Willy the Wilson,V4,,willy-the-wilson.png,,Based after the Red River Gorge climb Team Wilson (5.12d). The textured holds make for a surprisingly crimpy and pumpy boulder.,Yoda,2026-04-20
@@ -29,7 +29,7 @@ id,name,grade,rating,image,tags,notes,setter,date
 28,Retray (jump from base after base),V2,,retray-jump-from-base-after-base.png,,"Silly Jaspar actually fell for it...",Ben,2026-10-08
 29,Regenschirm,V5,,regenschirm.png,,"Which way do you go? The beta is actually surprisingly complex and I'm really happy with it. Also Regenschirm is umbrella in German.",Ben,2026-10-22
 30,Lunar Flare,V3,,lunar-flare.png,,"Accidentally named after terraria weapon. Made in about 10 minutes with minimal testing.",Ben,2026-10-22
-31,Hop for Happiness,V1,,hop-for-happiness.png,,"Short version of Jump for Joy. Another one of THE OG garage climbs.",Ben,2026-04-13
+31,Hop for Happiness,V2,,hop-for-happiness.png,,"Short version of Jump for Joy. Another one of THE OG garage climbs.",Ben,2026-04-13
 32,Burden of Barleycorns,V4,,burden-of-barleycorns.png,,"no description",Jaspar,2026-10-08
 33,Ellie goes to Hollywood,V0,,ellie-goes-to-hollywood.png,,"no description",Yoda,2026-10-24
-34,The Immortal Snail,V1,,the-immortal-snail.png,,"This snail NEEDS 1,000,000 dollars. Why does he even want it?",Marci,2026-10-25
+34,The Immortal Snail,V2,,the-immortal-snail.png,,"This snail NEEDS 1,000,000 dollars. Why does he even want it?",Marci,2026-10-25
